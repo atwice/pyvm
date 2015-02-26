@@ -1,4 +1,5 @@
 import sys
+import time
 import pyvm.Assembler as asm
 import pyvm.Disassembler as disasm
 import pyvm.VirtualMachine as vm
@@ -19,7 +20,10 @@ def assemble(asmFileName, outFileName):
 
 def executeVM(fileName):
 	virtualMachine = vm.VirtualMachine(fileName)
+	start = time.time()
 	virtualMachine.run()
+	end = time.time()
+	print( end-start, "s" )
 
 usage = """usage:
 vm.py -asm -o:[target binary file] [source file]
@@ -32,6 +36,7 @@ vm.py [binary file]
 def main():
 	if len(sys.argv) < 2:
 		showHelp()
+		return
 	elif len(sys.argv) == 2:
 		arg = sys.argv[1]
 		if arg[:2].lower() == "-h":
